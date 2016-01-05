@@ -62,7 +62,8 @@
           },
           error: function(model, error) {            
           }
-        });     
+        });    
+        $("#content").val(""); 
     }
 
     $("#send").click(function(){
@@ -94,7 +95,8 @@
 
         
         content.html(content.html()+p);
-        $("#content").val("");
+        var top = $("#data")[0].scrollHeight
+        $("#data").scrollTop(top);
      }
    };
 
