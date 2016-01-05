@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <title>chat room demo</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="http://7u2sas.com1.z0.glb.clouddn.com/js/jquery.1.8.3.min.js"></script>
     <script src="js/bmobSocketIo.js"></script>
     <script src="js/bmob.js"></script>
+    <script type="text/javascript" src="js/jquery.qqFace.js"></script>
 </head>
 <body>
     <h1>chat room demo</h1>
@@ -16,7 +17,8 @@
     </div>
     <div id="data" class="clearfix chat"></div>
     <div class="btn-box">
-        <textarea class="content" id="content"></textarea>
+        <textarea class="content" id="content" name="content"></textarea>
+        <span class="emotion">表情</span>
         <a href="javascript:;" class="send-btn" id="send">发送</a>
     </div>  
     <div class="login-box">
@@ -43,6 +45,16 @@
         $(".login-box,.full-bg").css("display","block");
       })
 
+      $('.emotion').qqFace({
+        id : 'facebox', //表情盒子的ID
+        assign:'content', //给那个控件赋值
+        path:'face/'  //表情存放的路径
+      });
+      // $(".sub_btn").click(function(){
+      //   var str = $("#content").val();
+      //   $("#data").html(replace_em(str));
+      // });
+      //查看结果
     })
     function sendMsg(){
 
@@ -70,7 +82,13 @@
 
         sendMsg();
     });
-
+    function replace_em(str){
+      str = str.replace(/\</g,'&lt;');
+      str = str.replace(/\>/g,'&gt;');
+      str = str.replace(/\n/g,'<br/>');
+      str = str.replace(/\[em_([0-9]*)\]/g,'<img src="face/$1.gif" border="0" />');
+      return str;
+    }
     //服务器
     BmobSocketIo.initialize("b5858b7b2f1704c0db5d549a2cf48e14");
     Bmob.initialize("b5858b7b2f1704c0db5d549a2cf48e14", "7666c915d7c46a928d547a7898507c4e");
@@ -87,10 +105,12 @@
      if( tablename=="Chat" ) {
         // alert(tablename);
         var content=$("#data");
+        
+
         if(data.name == localStorage.name){
-          var p = '<p class="chat-box-r"><span style="color:red;">' + data.name+'</span>  '+'<span style="color:green;">'+ data.createdAt+'</span>  '+ ' :<br/> '+data.content+'</p><br/><br/>';
+          var p = '<p class="chat-box-r"><span style="color:red;">' + data.name+'</span>  '+'<span style="color:green;">'+ data.createdAt+'</span>  '+ ' :<br/> '+replace_em(data.content)+'</p><br/><br/>';
         }else{
-          var p = '<p class="chat-box-l"><span style="color:red;">' + data.name+'</span>  '+'<span style="color:green;">'+ data.createdAt+'</span>  '+ ' :<br/> '+data.content+'</p><br/><br/>';
+          var p = '<p class="chat-box-l"><span style="color:red;">' + data.name+'</span>  '+'<span style="color:green;">'+ data.createdAt+'</span>  '+ ' :<br/> '+replace_em(data.content)+'</p><br/><br/>';
         }
 
         
