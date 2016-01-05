@@ -123,6 +123,7 @@
   //通过“回车”提交聊天信息
    $('#name').keydown(function(e) {
     if (e.keyCode === 13) {
+      event.preventDefault();
       sendMsg();
     }
   });
@@ -130,6 +131,7 @@
   //通过“回车”提交聊天信息
    $('#content').keydown(function(e) {
     if (e.keyCode === 13) {
+      event.preventDefault();
       sendMsg();
     }
   });
