@@ -24,6 +24,7 @@ h1{ padding:20px; text-align: center; font-size: 24px;}
 .chat-box-r{float:right; padding:10px; background: #4ec69a; width:70%; margin:10px 2% 10px 0; border-radius:8px; position: relative;}
 .chat-box-r:after{background:#4ec69a; content: ""; position: absolute; right: -4px; top: 16px; width:10px; height: 10px; transform:rotate(45deg);}
 .chat-box-l img,.chat-box-r img{ vertical-align: -5px;}
+.chat-box-l,.chat-box-r{ word-break:break-all; word-wrap:break-word;}
 
 .content{width:80%; height:80px; display: block; margin:10px auto auto auto;}
 .btn-box{ position: relative; padding-bottom:40px;}
