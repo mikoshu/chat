@@ -50,6 +50,7 @@
         path:'face/'  //表情存放的路径
       });
     })
+    var title = $("title").text(),blink;
     function sendMsg(){
         var name= localStorage.name;
         var content = $("#content").val();
@@ -96,19 +97,39 @@
           var p = '<p class="chat-box-r"><span style="color:red;">' + data.name+'</span>  '+'<span style="color:green;">'+ data.createdAt+'</span>  '+ ' :<br/> '+replace_em(data.content)+'</p><br/><br/>';
         }else{
           var p = '<p class="chat-box-l"><span style="color:red;">' + data.name+'</span>  '+'<span style="color:green;">'+ data.createdAt+'</span>  '+ ' :<br/> '+replace_em(data.content)+'</p><br/><br/>';
+          blinkTitle(1400);
         }
         content.html(content.html()+p);
         var top = $("#data")[0].scrollHeight
         $("#data").scrollTop(top);
+
      }
    };
   //通过“回车”提交聊天信息
    $('#content').keydown(function(e) {
+     noBlink()
     if (e.keyCode === 13) {
       e.preventDefault();
       sendMsg();
     }
   });
+   $("#content").on("click",function(){
+    noBlink()
+   })
+  function blinkTitle(time){
+    var dom = $("title");
+    var newTitle ="【你有新消息】";
+    blink = setInterval(function(){
+      dom.text(title);
+      setTimeout(function(){
+        dom.text(newTitle)
+      },time/2)
+    },time);
+  }
+  function noBlink(){
+    clearInterval(blink);
+    setTimeout(function(){$("title").text(title);},1000);
+  }
   </script>
 
 
