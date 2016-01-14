@@ -33,15 +33,19 @@
   <script type="text/javascript" src="js/iNotify.js"></script>
   <script type="text/javascript">
 
-  var hidden;
-  if (typeof document.hidden !== "undefined") { // 判断网页是否打开当前页
+  var hidden,visibilityChange;
+  if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support 
     hidden = "hidden";
+    visibilityChange = "visibilitychange";
   } else if (typeof document.mozHidden !== "undefined") {
     hidden = "mozHidden";
+    visibilityChange = "mozvisibilitychange";
   } else if (typeof document.msHidden !== "undefined") {
     hidden = "msHidden";
+    visibilityChange = "msvisibilitychange";
   } else if (typeof document.webkitHidden !== "undefined") {
     hidden = "webkitHidden";
+    visibilityChange = "webkitvisibilitychange";
   }
 var iNotify = new iNotify().init({
     message: '有消息了。',//标题 
@@ -55,16 +59,17 @@ var iNotify = new iNotify().init({
         // favicon 字体颜色 
         textColor: "#fff",
         //背景颜色，设置背景颜色透明，将值设置为“transparent” 
-        backgroundColor: "#2F9A00" 
+        backgroundColor: "#000" 
     },
     //可选chrome浏览器通知，默认不填写就是下面的内容 
     notification:{
-        title:"Miko的聊天室通知",//设置标题 
-        icon:"http://mikoshu.me/images/miko.ico",//设置图标 icon 默认为 Favicon 
-        body: '您来了新消息！'//设置消息内容 
+        title:"Miko的聊天室通知！",//设置标题 
+        icon:"/images/icon.png",//设置图标 icon 默认为 Favicon 
+        body: '你好！'+localStorage.name + '，你有新消息！'//设置消息内容 
     }
 })
-console.log(document[hidden])
+iNotify.setFavicon("M");
+
     $(document).ready(function(){
       if(localStorage.name){
         $(".login-box,.full-bg").css("display","none");
